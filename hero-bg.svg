@@ -1,0 +1,107 @@
+<svg width="1400" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <title>Hero background — Investir Bem</title>
+
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c0f0a"/>
+      <stop offset="60%" stop-color="#0e1510"/>
+      <stop offset="100%" stop-color="#0a0d09"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c9b87a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#c9b87a" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="dollarGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c9b87a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#a89558" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="680" height="420" fill="url(#bgGrad)"/>
+
+  <!-- Grid horizontal -->
+  <line x1="60" y1="80"  x2="650" y2="80"  stroke="#e8e2d4" stroke-opacity="0.04" stroke-width="0.5"/>
+  <line x1="60" y1="140" x2="650" y2="140" stroke="#e8e2d4" stroke-opacity="0.04" stroke-width="0.5"/>
+  <line x1="60" y1="200" x2="650" y2="200" stroke="#e8e2d4" stroke-opacity="0.04" stroke-width="0.5"/>
+  <line x1="60" y1="260" x2="650" y2="260" stroke="#e8e2d4" stroke-opacity="0.04" stroke-width="0.5"/>
+  <line x1="60" y1="320" x2="650" y2="320" stroke="#e8e2d4" stroke-opacity="0.04" stroke-width="0.5"/>
+
+  <!-- Grid vertical -->
+  <line x1="160" y1="60" x2="160" y2="390" stroke="#e8e2d4" stroke-opacity="0.03" stroke-width="0.5"/>
+  <line x1="260" y1="60" x2="260" y2="390" stroke="#e8e2d4" stroke-opacity="0.03" stroke-width="0.5"/>
+  <line x1="360" y1="60" x2="360" y2="390" stroke="#e8e2d4" stroke-opacity="0.03" stroke-width="0.5"/>
+  <line x1="460" y1="60" x2="460" y2="390" stroke="#e8e2d4" stroke-opacity="0.03" stroke-width="0.5"/>
+  <line x1="560" y1="60" x2="560" y2="390" stroke="#e8e2d4" stroke-opacity="0.03" stroke-width="0.5"/>
+
+  <!-- Bars -->
+  <rect x="370" y="290" width="28" height="80"  fill="url(#barGrad)" rx="2"/>
+  <rect x="412" y="240" width="28" height="130" fill="url(#barGrad)" rx="2"/>
+  <rect x="454" y="200" width="28" height="170" fill="url(#barGrad)" rx="2"/>
+  <rect x="496" y="155" width="28" height="215" fill="url(#barGrad)" rx="2"/>
+  <rect x="538" y="120" width="28" height="250" fill="url(#barGrad)" rx="2"/>
+  <rect x="580" y="85"  width="28" height="285" fill="url(#barGrad)" rx="2"/>
+  <rect x="622" y="60"  width="28" height="310" fill="url(#barGrad)" rx="2"/>
+
+  <!-- Bar tops -->
+  <rect x="370" y="290" width="28" height="2" fill="#c9b87a" rx="1"/>
+  <rect x="412" y="240" width="28" height="2" fill="#c9b87a" rx="1"/>
+  <rect x="454" y="200" width="28" height="2" fill="#c9b87a" rx="1"/>
+  <rect x="496" y="155" width="28" height="2" fill="#c9b87a" rx="1"/>
+  <rect x="538" y="120" width="28" height="2" fill="#c9b87a" rx="1"/>
+  <rect x="580" y="85"  width="28" height="2" fill="#c9b87a" rx="1"/>
+  <rect x="622" y="60"  width="28" height="2" fill="#c9b87a" rx="1"/>
+
+  <!-- Line chart -->
+  <polyline
+    points="384,290 426,240 468,195 510,152 552,116 594,82 636,58"
+    fill="none" stroke="#97c459" stroke-width="1.8"
+    stroke-linejoin="round" stroke-linecap="round" stroke-opacity="0.85"/>
+
+  <circle cx="384" cy="290" r="3.5" fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="426" cy="240" r="3.5" fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="468" cy="195" r="3.5" fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="510" cy="152" r="3.5" fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="552" cy="116" r="3.5" fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="594" cy="82"  r="3.5" fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="636" cy="58"  r="4.5" fill="#97c459"/>
+
+  <!-- Dollar hexagon frame -->
+  <polygon points="168,52 228,52 258,104 228,156 168,156 138,104"
+    fill="none" stroke="#c9b87a" stroke-width="1.2" stroke-opacity="0.5"/>
+  <polygon points="176,67 220,67 242,104 220,141 176,141 154,104"
+    fill="none" stroke="#c9b87a" stroke-width="0.7" stroke-opacity="0.25"/>
+
+  <!-- Dollar S -->
+  <path d="M 215 80 C 225 80 232 86 232 94 C 232 102 225 107 198 110 C 171 113 164 118 164 127 C 164 136 172 142 185 142"
+    fill="none" stroke="url(#dollarGlow)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 183 78 C 170 78 162 84 162 93 C 162 102 169 107 198 110 C 227 113 234 118 234 127 C 234 136 226 142 212 142"
+    fill="none" stroke="url(#dollarGlow)" stroke-width="5" stroke-linecap="round"/>
+  <line x1="198" y1="68"  x2="198" y2="82"  stroke="#c9b87a" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="198" y1="140" x2="198" y2="154" stroke="#c9b87a" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Accent lines -->
+  <line x1="258" y1="104" x2="340" y2="104" stroke="#c9b87a" stroke-width="0.7" stroke-opacity="0.3" stroke-dasharray="4 4"/>
+  <line x1="228" y1="52"  x2="300" y2="30"  stroke="#c9b87a" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="3 5"/>
+  <line x1="228" y1="156" x2="300" y2="178" stroke="#c9b87a" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="3 5"/>
+
+  <!-- Floating nodes -->
+  <circle cx="310" cy="104" r="3" fill="none" stroke="#c9b87a" stroke-width="0.8" stroke-opacity="0.5"/>
+  <circle cx="338" cy="88"  r="2" fill="none" stroke="#c9b87a" stroke-width="0.7" stroke-opacity="0.4"/>
+  <circle cx="338" cy="122" r="2" fill="none" stroke="#c9b87a" stroke-width="0.7" stroke-opacity="0.4"/>
+  <line x1="310" y1="104" x2="338" y2="88"  stroke="#c9b87a" stroke-width="0.5" stroke-opacity="0.3"/>
+  <line x1="310" y1="104" x2="338" y2="122" stroke="#c9b87a" stroke-width="0.5" stroke-opacity="0.3"/>
+
+  <!-- Axis -->
+  <line x1="60" y1="372" x2="650" y2="372" stroke="#e8e2d4" stroke-opacity="0.08" stroke-width="0.5"/>
+  <text x="384"  y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="#e8e2d4" fill-opacity="0.2">Jan</text>
+  <text x="426"  y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="#e8e2d4" fill-opacity="0.2">Fev</text>
+  <text x="468"  y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="#e8e2d4" fill-opacity="0.2">Mar</text>
+  <text x="510"  y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="#e8e2d4" fill-opacity="0.2">Abr</text>
+  <text x="552"  y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="#e8e2d4" fill-opacity="0.2">Mai</text>
+  <text x="594"  y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="#e8e2d4" fill-opacity="0.2">Jun</text>
+  <text x="636"  y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="#e8e2d4" fill-opacity="0.2">Jul</text>
+
+  <!-- Vignettes -->
+  <rect x="0" y="0" width="100" height="420" fill="url(#bgGrad)" fill-opacity="0.6"/>
+  <rect x="0" y="340" width="680" height="80" fill="url(#bgGrad)" fill-opacity="0.5"/>
+</svg>
