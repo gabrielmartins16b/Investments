@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz — Investir Bem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0c0f0a; --gold: #c9b87a; --gold-dim: rgba(201,184,122,0.4);
+      --gold-bg: rgba(201,184,122,0.08); --text: #e8e2d4;
+      --text-dim: rgba(232,226,212,0.5); --text-faint: rgba(232,226,212,0.2);
+      --border: rgba(232,226,212,0.12); --border-faint: rgba(232,226,212,0.08);
+      --card: #0f130d; --card-hover: #141810;
+      --green: #97c459; --green-bg: rgba(151,196,89,0.1);
+      --red: #e07070; --red-bg: rgba(224,112,112,0.1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 72px; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; letter-spacing: 0.04em; color: var(--gold); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-mark { width: 28px; height: 28px; border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .btn-primary { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg); background: var(--gold); border: none; padding: 10px 22px; cursor: pointer; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: transparent; border: 0.5px solid var(--gold-dim); padding: 10px 22px; cursor: pointer; transition: border-color 0.2s; }
+    .btn-ghost:hover { border-color: var(--gold); }
+    .btn-ghost:disabled, .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--gold); transition: transform 0.3s, opacity 0.3s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 99; flex-direction: column; padding: 2.5rem 2rem; border-top: 0.5px solid var(--border); gap: 0; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; padding: 1.4rem 0; border-bottom: 0.5px solid var(--border-faint); }
+    .mobile-menu .btn-primary { margin-top: 2rem; width: 100%; padding: 14px; font-size: 13px; text-align: center; }
+
+    .quiz-hero { padding: 5rem 3rem 4rem; border-bottom: 0.5px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+    .hero-tag { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-bottom: 1.2rem; }
+    .hero-line { width: 40px; height: 1px; background: var(--gold); margin-bottom: 1.2rem; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 58px); font-weight: 400; line-height: 1.08; color: var(--text); }
+    .hero-sub { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-top: 1.5rem; max-width: 400px; }
+    .hero-meta { display: flex; flex-direction: column; gap: 1.5rem; justify-content: flex-end; }
+    .meta-row { display: flex; align-items: center; gap: 1px; background: var(--border-faint); }
+    .meta-item { background: var(--card); padding: 1.5rem 2rem; flex: 1; }
+    .meta-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold); line-height: 1; }
+    .meta-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-top: 0.4rem; }
+    .hero-cta { display: flex; gap: 1rem; margin-top: 1rem; }
+
+    .progress-bar-wrap { padding: 0 3rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 2rem; height: 56px; }
+    .progress-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+    .progress-track { flex: 1; height: 2px; background: var(--border-faint); }
+    .progress-fill { height: 100%; background: var(--gold); transition: width 0.4s ease; }
+    .progress-pct { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--gold); white-space: nowrap; }
+
+    .quiz-body { padding: 4rem 3rem; max-width: 860px; }
+    .question-block { display: none; flex-direction: column; gap: 2rem; animation: fadeUp 0.3s ease forwards; }
+    .question-block.active { display: flex; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    .q-header { display: flex; align-items: baseline; gap: 1.5rem; }
+    .q-num { font-family: 'Playfair Display', serif; font-size: 11px; letter-spacing: 0.15em; color: var(--text-faint); flex-shrink: 0; }
+    .q-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px; border: 0.5px solid rgba(201,184,122,0.25); color: var(--gold); }
+    .q-text { font-family: 'Playfair Display', serif; font-size: clamp(20px, 3vw, 30px); font-weight: 400; line-height: 1.2; color: var(--text); }
+    .q-hint { font-size: 13px; color: var(--text-dim); line-height: 1.6; padding: 1.2rem 1.5rem; border-left: 1px solid var(--gold-dim); margin-top: -0.5rem; }
+
+    .options { display: flex; flex-direction: column; gap: 1px; background: var(--border-faint); }
+    .option { background: var(--card); padding: 1.4rem 2rem; display: flex; align-items: flex-start; gap: 1.5rem; cursor: pointer; transition: background 0.2s; border: none; width: 100%; text-align: left; color: var(--text); font-family: 'DM Sans', sans-serif; }
+    .option:hover:not(:disabled):not(.correct):not(.wrong) { background: var(--card-hover); }
+    .option:disabled { cursor: default; }
+    .option-letter { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--text-faint); width: 20px; flex-shrink: 0; text-align: center; padding-top: 1px; }
+    .option-text { font-size: 14px; line-height: 1.5; }
+    .option.correct { background: var(--green-bg); }
+    .option.correct .option-letter { color: var(--green); }
+    .option.wrong { background: var(--red-bg); }
+    .option.wrong .option-letter { color: var(--red); }
+
+    .feedback { display: none; padding: 1.5rem 2rem; border-left: 2px solid var(--gold); background: var(--gold-bg); font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+    .feedback.visible { display: block; }
+    .feedback.correct-fb { border-color: var(--green); background: var(--green-bg); }
+    .feedback.wrong-fb { border-color: var(--red); background: var(--red-bg); }
+    .feedback strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 0.4rem; font-size: 14px; }
+    .feedback .fb-wrong-note { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 0.5px solid var(--border-faint); color: var(--text-faint); font-size: 12px; }
+
+    .q-actions { display: flex; gap: 1rem; }
+
+    .resultado { display: none; flex-direction: column; gap: 3rem; padding: 4rem 3rem; }
+    .resultado.visible { display: flex; }
+    .res-tag { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0.75; margin-bottom: 1rem; }
+    .res-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 400; line-height: 1.1; color: var(--text); }
+    .res-score { font-family: 'Playfair Display', serif; font-size: 80px; color: var(--gold); line-height: 1; }
+    .res-sub { font-size: 14px; color: var(--text-dim); margin-top: 0.5rem; }
+    .res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-faint); }
+    .res-card { background: var(--card); padding: 2rem 1.5rem; }
+    .res-card-num { font-family: 'Playfair Display', serif; font-size: 36px; line-height: 1; }
+    .res-card-num.green { color: var(--green); } .res-card-num.red { color: var(--red); } .res-card-num.gold { color: var(--gold); }
+    .res-card-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-top: 0.5rem; }
+    .res-msg { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: var(--text); line-height: 1.4; padding: 2rem; border: 0.5px solid var(--gold-dim); background: var(--gold-bg); }
+    .res-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    footer { padding: 3rem; border-top: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .foot-logo { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--gold); letter-spacing: 0.04em; }
+    .foot-links { display: flex; gap: 2rem; }
+    .foot-links a { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--text-dim); }
+    .foot-copy { font-size: 11px; color: var(--text-faint); letter-spacing: 0.04em; }
+
+    /* ── TABLET ── */
+    @media (max-width: 1024px) and (min-width: 601px) {
+      nav { padding: 0 2rem; }
+      .quiz-hero { padding: 3.5rem 2rem 3rem; gap: 2.5rem; }
+      .progress-bar-wrap { padding: 0 2rem; }
+      .quiz-body, .resultado { padding: 3rem 2rem; }
+      footer { padding: 2.5rem 2rem; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 1.2rem; height: 60px; }
+      .logo { font-size: 16px; gap: 6px; }
+      .logo-mark { width: 22px; height: 22px; font-size: 10px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { top: 60px; }
+
+      .quiz-hero { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.2rem 2rem; }
+      .hero-meta { display: none; }
+      .hero-cta { flex-direction: column; gap: 0.75rem; }
+      .hero-cta .btn-primary, .hero-cta .btn-ghost { width: 100%; text-align: center; padding: 14px; }
+
+      .progress-bar-wrap { padding: 0 1.2rem; gap: 1rem; height: 48px; }
+      .progress-label { font-size: 11px; }
+
+      .quiz-body { padding: 2rem 1.2rem; }
+      .q-hint { padding: 1rem 1.2rem; font-size: 12px; }
+      .option { padding: 1.2rem 1.2rem; gap: 1rem; }
+      .option-text { font-size: 13px; }
+      .q-actions .btn-ghost { width: 100%; text-align: center; padding: 14px; }
+
+      .resultado { padding: 2.5rem 1.2rem; gap: 2rem; }
+      .res-score { font-size: 60px; }
+      .res-grid { grid-template-columns: 1fr; }
+      .res-msg { font-size: 17px; padding: 1.5rem; }
+      .res-actions { flex-direction: column; }
+      .res-actions .btn-primary, .res-actions a { width: 100%; }
+      .res-actions .btn-primary, .res-actions .btn-ghost { padding: 14px; text-align: center; }
+
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.2rem; }
+      .foot-links { flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo" onclick="confirmarSaidaQuiz(event)">
+      <div class="logo-mark">IN</div>
+      Investir&nbsp;<span style="font-weight:300;opacity:0.6">Bem</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" onclick="confirmarSaidaQuiz(event)">Início</a>
+      <a href="#" class="active">Quiz</a>
+      <a href="index.html#conteudo" onclick="confirmarSaidaQuiz(event)">Conteúdo</a>
+      <button class="btn-primary" onclick="iniciarQuiz()">Começar quiz</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html" onclick="confirmarSaidaQuiz(event)">Início</a>
+    <a href="#" class="active">Quiz</a>
+    <a href="index.html#conteudo" onclick="confirmarSaidaQuiz(event)">Conteúdo</a>
+    <button class="btn-primary" onclick="iniciarQuiz(); toggleMenu()">Começar quiz</button>
+  </div>
+
+  <section class="quiz-hero" id="quiz-hero">
+    <div>
+      <div class="hero-tag">Teste seus conhecimentos</div>
+      <div class="hero-line"></div>
+      <h1 class="hero-title">Quanto você<br>sabe sobre<br>investimentos?</h1>
+      <p class="hero-sub">7 questões para avaliar o seu entendimento sobre inflação, renda fixa e renda variável. Sem pegadinhas — só o essencial.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="iniciarQuiz()">Iniciar quiz</button>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-row">
+        <div class="meta-item"><div class="meta-num">7</div><div class="meta-label">Questões</div></div>
+        <div class="meta-item"><div class="meta-num">~5</div><div class="meta-label">Minutos</div></div>
+        <div class="meta-item"><div class="meta-num">4</div><div class="meta-label">Temas</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="progress-bar-wrap" id="progress-wrap" style="display:none">
+    <span class="progress-label" id="progress-label">Questão 1 de 7</span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <span class="progress-pct" id="progress-pct">0%</span>
+  </div>
+
+  <section id="quiz-section">
+    <div class="quiz-body" id="quiz-body" style="display:none">
+
+      <!-- Q1 -->
+      <div class="question-block" id="q1">
+        <div class="q-header"><span class="q-num">01 / 07</span><span class="q-tag">Inflação</span></div>
+        <h2 class="q-text">Você tem R$ 100 hoje e os guarda embaixo do colchão. Daqui a um ano, com inflação de 10%, o que acontece com esse dinheiro?</h2>
+        <p class="q-hint">Pense no que a inflação representa na prática — não no valor numérico das notas, mas no que elas conseguem comprar.</p>
+        <div class="options">
+          <button class="option" onclick="responder(this,1,false,'A')"><span class="option-letter">A</span><span class="option-text">O dinheiro se valoriza, pois ficou guardado em segurança.</span></button>
+          <button class="option" onclick="responder(this,1,false,'B')"><span class="option-letter">B</span><span class="option-text">O valor continua igual, pois as notas não mudam fisicamente.</span></button>
+          <button class="option" onclick="responder(this,1,true,'C')"><span class="option-letter">C</span><span class="option-text">O dinheiro perde poder de compra — com R$ 100 você comprará menos coisas do que hoje.</span></button>
+          <button class="option" onclick="responder(this,1,false,'D')"><span class="option-letter">D</span><span class="option-text">O impacto depende do banco onde você guarda o dinheiro.</span></button>
+        </div>
+        <div class="feedback" id="fb1"></div>
+        <div class="q-actions"><button class="btn-ghost" id="next1" onclick="proximaQuestao(2)" disabled>Próxima questão →</button></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block" id="q2">
+        <div class="q-header"><span class="q-num">02 / 07</span><span class="q-tag">Inflação</span></div>
+        <h2 class="q-text">Seu investimento rendeu 5% no ano, mas a inflação foi de 6%. O que isso significa para o seu patrimônio?</h2>
+        <p class="q-hint">O que importa não é o rendimento bruto, mas o ganho real — o que sobra depois da inflação.</p>
+        <div class="options">
+          <button class="option" onclick="responder(this,2,false,'A')"><span class="option-letter">A</span><span class="option-text">Você lucrou 5%, então o patrimônio cresceu.</span></button>
+          <button class="option" onclick="responder(this,2,true,'B')"><span class="option-letter">B</span><span class="option-text">Você ficou mais pobre em termos reais, pois a inflação superou o rendimento.</span></button>
+          <button class="option" onclick="responder(this,2,false,'C')"><span class="option-letter">C</span><span class="option-text">O resultado é neutro — rendimento e inflação se cancelam.</span></button>
+          <button class="option" onclick="responder(this,2,false,'D')"><span class="option-letter">D</span><span class="option-text">Só há perda se o rendimento for zero.</span></button>
+        </div>
+        <div class="feedback" id="fb2"></div>
+        <div class="q-actions"><button class="btn-ghost" id="next2" onclick="proximaQuestao(3)" disabled>Próxima questão →</button></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block" id="q3">
+        <div class="q-header"><span class="q-num">03 / 07</span><span class="q-tag">Selic e CDI</span></div>
+        <h2 class="q-text">Quando o Banco Central eleva a Taxa Selic, qual é o efeito mais direto na economia do dia a dia?</h2>
+        <p class="q-hint">A Selic é a principal ferramenta do governo para controlar a inflação. Pense no que acontece com o crédito quando os juros sobem.</p>
+        <div class="options">
+          <button class="option" onclick="responder(this,3,false,'A')"><span class="option-letter">A</span><span class="option-text">O crédito fica mais barato e o consumo aumenta.</span></button>
+          <button class="option" onclick="responder(this,3,false,'B')"><span class="option-letter">B</span><span class="option-text">O governo arrecada menos impostos.</span></button>
+          <button class="option" onclick="responder(this,3,true,'C')"><span class="option-letter">C</span><span class="option-text">O crédito encarece, o consumo cai e a inflação tende a ser contida.</span></button>
+          <button class="option" onclick="responder(this,3,false,'D')"><span class="option-letter">D</span><span class="option-text">As ações na Bolsa sobem automaticamente.</span></button>
+        </div>
+        <div class="feedback" id="fb3"></div>
+        <div class="q-actions"><button class="btn-ghost" id="next3" onclick="proximaQuestao(4)" disabled>Próxima questão →</button></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-block" id="q4">
+        <div class="q-header"><span class="q-num">04 / 07</span><span class="q-tag">Tesouro Direto</span></div>
+        <h2 class="q-text">Qual título do Tesouro Direto é mais indicado para a reserva de emergência e por quê?</h2>
+        <p class="q-hint">A reserva de emergência precisa estar disponível a qualquer momento, sem risco de perda no resgate antecipado.</p>
+        <div class="options">
+          <button class="option" onclick="responder(this,4,false,'A')"><span class="option-letter">A</span><span class="option-text">Tesouro Prefixado, pois a rentabilidade já é conhecida desde o início.</span></button>
+          <button class="option" onclick="responder(this,4,false,'B')"><span class="option-letter">B</span><span class="option-text">Tesouro IPCA+, pois protege contra a inflação no longo prazo.</span></button>
+          <button class="option" onclick="responder(this,4,true,'C')"><span class="option-letter">C</span><span class="option-text">Tesouro Selic, pois tem alta liquidez e não oscila negativamente no resgate antecipado.</span></button>
+          <button class="option" onclick="responder(this,4,false,'D')"><span class="option-letter">D</span><span class="option-text">Qualquer título serve, pois o Tesouro Direto é sempre seguro.</span></button>
+        </div>
+        <div class="feedback" id="fb4"></div>
+        <div class="q-actions"><button class="btn-ghost" id="next4" onclick="proximaQuestao(5)" disabled>Próxima questão →</button></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-block" id="q5">
+        <div class="q-header"><span class="q-num">05 / 07</span><span class="q-tag">CDB / LCI / LCA</span></div>
+        <h2 class="q-text">Um CDB rende 100% do CDI e uma LCI rende 90% do CDI. Qual dos dois é mais vantajoso para o investidor pessoa física?</h2>
+        <p class="q-hint">Lembre-se: nem sempre o maior percentual bruto significa o maior rendimento no bolso.</p>
+        <div class="options">
+          <button class="option" onclick="responder(this,5,false,'A')"><span class="option-letter">A</span><span class="option-text">O CDB, pois 100% do CDI é sempre maior que 90%.</span></button>
+          <button class="option" onclick="responder(this,5,false,'B')"><span class="option-letter">B</span><span class="option-text">São equivalentes, pois ambos seguem o CDI.</span></button>
+          <button class="option" onclick="responder(this,5,true,'C')"><span class="option-letter">C</span><span class="option-text">A LCI pode ser mais vantajosa, pois é isenta de Imposto de Renda — o rendimento vai inteiro para o bolso.</span></button>
+          <button class="option" onclick="responder(this,5,false,'D')"><span class="option-letter">D</span><span class="option-text">O CDB, pois é garantido pelo FGC e a LCI não tem essa proteção.</span></button>
+        </div>
+        <div class="feedback" id="fb5"></div>
+        <div class="q-actions"><button class="btn-ghost" id="next5" onclick="proximaQuestao(6)" disabled>Próxima questão →</button></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-block" id="q6">
+        <div class="q-header"><span class="q-num">06 / 07</span><span class="q-tag">Ações</span></div>
+        <h2 class="q-text">Você vai precisar do dinheiro em 6 meses para realizar uma viagem. Faz sentido investir esse valor em ações agora?</h2>
+        <p class="q-hint">Ações são renda variável. O preço pode cair antes da data que você precisa do dinheiro.</p>
+        <div class="options">
+          <button class="option" onclick="responder(this,6,false,'A')"><span class="option-letter">A</span><span class="option-text">Sim, pois 6 meses é tempo suficiente para o mercado se recuperar.</span></button>
+          <button class="option" onclick="responder(this,6,false,'B')"><span class="option-letter">B</span><span class="option-text">Sim, desde que sejam ações de empresas grandes e sólidas.</span></button>
+          <button class="option" onclick="responder(this,6,false,'C')"><span class="option-letter">C</span><span class="option-text">Sim, porque os dividendos compensam qualquer queda no período.</span></button>
+          <button class="option" onclick="responder(this,6,true,'D')"><span class="option-letter">D</span><span class="option-text">Não — dinheiro com data marcada não deve ir para ações, pois você pode ser obrigado a vender com prejuízo.</span></button>
+        </div>
+        <div class="feedback" id="fb6"></div>
+        <div class="q-actions"><button class="btn-ghost" id="next6" onclick="proximaQuestao(7)" disabled>Próxima questão →</button></div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="question-block" id="q7">
+        <div class="q-header"><span class="q-num">07 / 07</span><span class="q-tag">ETFs</span></div>
+        <h2 class="q-text">O que é um ETF e qual a principal vantagem dele em relação a comprar ações individuais?</h2>
+        <p class="q-hint">Pense em como Warren Buffett recomenda que o investidor comum invista — sem precisar analisar empresa por empresa.</p>
+        <div class="options">
+          <button class="option" onclick="responder(this,7,false,'A')"><span class="option-letter">A</span><span class="option-text">É um tipo de CDB emitido por bancos digitais com rendimento atrelado ao Ibovespa.</span></button>
+          <button class="option" onclick="responder(this,7,false,'B')"><span class="option-letter">B</span><span class="option-text">É uma ação de uma empresa do setor financeiro negociada na Bolsa.</span></button>
+          <button class="option" onclick="responder(this,7,true,'C')"><span class="option-letter">C</span><span class="option-text">É um fundo negociado na Bolsa que replica um índice, oferecendo diversificação instantânea com baixo custo.</span></button>
+          <button class="option" onclick="responder(this,7,false,'D')"><span class="option-letter">D</span><span class="option-text">É um título do governo que combina renda fixa e renda variável em uma única aplicação.</span></button>
+        </div>
+        <div class="feedback" id="fb7"></div>
+        <div class="q-actions"><button class="btn-ghost" id="next7" onclick="mostrarResultado()" disabled>Ver resultado →</button></div>
+      </div>
+
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="resultado" id="resultado">
+      <div>
+        <div class="res-tag">Resultado</div>
+        <h2 class="res-title" id="res-title">Parabéns!</h2>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:1rem;">
+        <div class="res-score" id="res-score">0/7</div>
+        <div class="res-sub">questões corretas</div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card"><div class="res-card-num green" id="r-acertos">0</div><div class="res-card-label">Acertos</div></div>
+        <div class="res-card"><div class="res-card-num red" id="r-erros">0</div><div class="res-card-label">Erros</div></div>
+        <div class="res-card"><div class="res-card-num gold" id="r-pct">0%</div><div class="res-card-label">Aproveitamento</div></div>
+      </div>
+      <div class="res-msg" id="res-msg"></div>
+      <div class="res-actions">
+        <button class="btn-primary" onclick="reiniciarQuiz()">Tentar novamente</button>
+        <a href="index.html"><button class="btn-ghost">Ver trilha completa</button></a>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="foot-logo">Investir Bem</div>
+    <div class="foot-links">
+      <a href="index.html" onclick="confirmarSaidaQuiz(event)">Início</a>
+      <a href="index.html#conteudo" onclick="confirmarSaidaQuiz(event)">Conteúdo</a>
+      <a href="index.html#sobre" onclick="confirmarSaidaQuiz(event)">Sobre</a>
+    </div>
+    <div class="foot-copy">© 2025 Investir Bem</div>
+  </footer>
+
+  <script>
+    var acertos = 0;
+    var totalQuestoes = 7;
+
+    var feedbacks = {
+      1: {
+        correct: { titulo: "Correto! A inflação corrói o poder de compra.", texto: "Mesmo que as notas continuem as mesmas, elas valem menos. Com inflação de 10%, R$ 100 passam a comprar o equivalente a R$ 90 de hoje. O papel moeda 'encolhe' em capacidade de troca — e é exatamente por isso que guardar dinheiro parado é, na prática, perder dinheiro silenciosamente." },
+        wrong: {
+          A: "Dinheiro guardado não se valoriza sozinho. Sem rendimento, ele apenas perde poder de compra com a inflação.",
+          B: "As notas físicas até continuam as mesmas, mas o que importa é o que elas compram — e com inflação, compram cada vez menos.",
+          D: "A inflação afeta o poder de compra do dinheiro independentemente de onde ele está guardado. O banco só importa se o dinheiro estiver rendendo."
+        }
+      },
+      2: {
+        correct: { titulo: "Correto! O ganho real é o que importa.", texto: "Rendimento de 5% com inflação de 6% resulta em perda real de 1%. Você até tem mais notas na conta, mas elas compram menos do que antes. Por isso, um bom investimento precisa render, no mínimo, acima da inflação do período — só assim há ganho real de patrimônio." },
+        wrong: {
+          A: "Você lucrou 5% em termos nominais, mas a inflação foi de 6%. O rendimento real é negativo — você perdeu poder de compra.",
+          C: "Não é neutro: inflação de 6% e rendimento de 5% deixam uma diferença de 1% de perda real. O patrimônio encolheu em termos de poder de compra.",
+          D: "Mesmo com rendimento positivo, se ele for menor do que a inflação, há perda real. Zero de rendimento seria ainda pior, mas qualquer valor abaixo da inflação já representa retrocesso."
+        }
+      },
+      3: {
+        correct: { titulo: "Correto! Selic alta = crédito caro = menos consumo = inflação controlada.", texto: "Quando a Selic sobe, o juro do cartão, do financiamento do carro e do cheque especial também sobem. As pessoas consomem menos, as empresas vendem menos, e a pressão sobre os preços diminui. É o mecanismo clássico de controle da inflação pelo Banco Central." },
+        wrong: {
+          A: "Ao contrário: Selic alta encarece o crédito. É a Selic baixa que barateia empréstimos e estimula o consumo.",
+          B: "A arrecadação de impostos não é diretamente afetada pela Selic desta forma. O impacto da taxa é principalmente sobre o custo do crédito e o nível de consumo.",
+          D: "Na verdade, a tendência é oposta: Selic alta torna a renda fixa mais atrativa, o que pode fazer os investidores migrarem de ações para renda fixa, pressionando a Bolsa para baixo."
+        }
+      },
+      4: {
+        correct: { titulo: "Correto! Tesouro Selic é o porto seguro da reserva de emergência.", texto: "O Tesouro Selic tem liquidez diária: você resgata e o dinheiro cai na conta em 1 dia útil. Além disso, seu valor não oscila negativamente se você precisar retirar antes do prazo — diferente do IPCA+ e do Prefixado, que podem valer menos do que você investiu no resgate antecipado por causa da marcação a mercado." },
+        wrong: {
+          A: "O Prefixado trava uma taxa, mas se você resgatar antes do vencimento, o governo recompra pelo preço de mercado — que pode ser menor. Péssimo para emergências.",
+          B: "O IPCA+ é excelente para aposentadoria e longo prazo, mas tem o mesmo problema: resgate antecipado expõe à marcação a mercado, com risco de perda.",
+          D: "Não é qualquer título: o risco do Tesouro Direto depende do prazo e do tipo. Resgatar IPCA+ ou Prefixado antes do vencimento pode resultar em perda real."
+        }
+      },
+      5: {
+        correct: { titulo: "Correto! Isenção de IR muda completamente a conta.", texto: "O CDB paga 100% do CDI, mas incide Imposto de Renda (entre 15% e 22,5% sobre o rendimento). A LCI de 90% do CDI é isenta de IR — o rendimento vai todo para o bolso. Dependendo do prazo, a LCI de 90% pode superar o CDB de 100% em retorno líquido. A lição: sempre compare o valor final que cai na conta, não o percentual bruto." },
+        wrong: {
+          A: "100% bruto não significa 100% no bolso. O CDB paga IR sobre o rendimento; a LCI não. É preciso comparar o valor líquido, não o percentual bruto.",
+          B: "Não são equivalentes: a diferença está no imposto. A LCI isenta de IR pode superar o CDB tributado mesmo rendendo menos no papel.",
+          D: "Tanto LCI quanto LCA também são protegidos pelo FGC até R$ 250 mil por CPF por instituição. Essa não é a diferença entre eles."
+        }
+      },
+      6: {
+        correct: { titulo: "Correto! Dinheiro com data marcada não vai para ações.", texto: "O mercado pode cair 20%, 30% ou mais em poucos meses por crises políticas ou econômicas. Se você precisar do dinheiro e o mercado estiver em baixa, será obrigado a vender com prejuízo. Ações são para quem tem horizonte de anos ou décadas — nunca para metas de curto prazo com data definida." },
+        wrong: {
+          A: "Seis meses não garante nada. O mercado pode não se recuperar nesse prazo — ou pode cair ainda mais. Não há como prever.",
+          B: "Mesmo empresas sólidas e grandes podem cair 30% ou mais em crises. O tamanho da empresa não protege contra volatilidade de curto prazo.",
+          C: "Dividendos são distribuídos ao longo do ano e não são garantidos. Eles não compensam uma queda relevante no preço da ação no curto prazo."
+        }
+      },
+      7: {
+        correct: { titulo: "Correto! ETF é diversificação instantânea e de baixo custo.", texto: "Um ETF como o IVVB11 replica o S&P 500, colocando você como sócio das 500 maiores empresas dos EUA com uma única cota. As taxas de administração são muito menores que fundos tradicionais. Warren Buffett defende que o investidor comum deveria comprar um ETF de índice e segurar por décadas, em vez de tentar adivinhar a próxima ação vencedora." },
+        wrong: {
+          A: "ETF não é CDB e não é emitido por bancos. É um fundo negociado na Bolsa que replica um índice de ativos, como ações ou títulos.",
+          B: "ETF não é uma ação de uma empresa específica. É um 'pacote' de muitos ativos que acompanha um índice, como o Ibovespa ou o S&P 500.",
+          D: "ETF não é título do governo. Ele é negociado na Bolsa como uma ação, mas seu conteúdo é uma cesta diversificada de ativos que replica um índice."
+        }
+      }
+    };
+
+    function toggleMenu() {
+      var btn = document.getElementById('hamburger');
+      var menu = document.getElementById('mobile-menu');
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+
+    function iniciarQuiz() {
+      document.getElementById('quiz-hero').style.display = 'none';
+      document.getElementById('progress-wrap').style.display = 'flex';
+      document.getElementById('quiz-body').style.display = 'block';
+      document.getElementById('resultado').classList.remove('visible');
+      mostrarQuestao(1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function mostrarQuestao(n) {
+      document.querySelectorAll('.question-block').forEach(function(el) { el.classList.remove('active'); });
+      var q = document.getElementById('q' + n);
+      if (q) q.classList.add('active');
+      atualizarProgress(n);
+    }
+
+    function atualizarProgress(n) {
+      var pct = Math.round(((n - 1) / totalQuestoes) * 100);
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-pct').textContent = pct + '%';
+      document.getElementById('progress-label').textContent = 'Questão ' + n + ' de ' + totalQuestoes;
+    }
+
+    function responder(btn, qNum, correta, letra) {
+      var block = document.getElementById('q' + qNum);
+      var opts = block.querySelectorAll('.option');
+      var fb = document.getElementById('fb' + qNum);
+      var nextBtn = document.getElementById('next' + qNum);
+      var data = feedbacks[qNum];
+      opts.forEach(function(o) { o.disabled = true; });
+      if (correta) {
+        btn.classList.add('correct');
+        fb.classList.add('correct-fb', 'visible');
+        fb.innerHTML = '<strong>✓ ' + data.correct.titulo + '</strong>' + data.correct.texto;
+        acertos++;
+      } else {
+        btn.classList.add('wrong');
+        fb.classList.add('wrong-fb', 'visible');
+        opts.forEach(function(o) {
+          if (o.getAttribute('onclick') && o.getAttribute('onclick').includes('true')) o.classList.add('correct');
+        });
+        var erroTexto = data.wrong[letra] || '';
+        fb.innerHTML = '<strong>✗ Não é essa.</strong>' + erroTexto + '<div class="fb-wrong-note">↑ A alternativa correta está destacada em verde acima.</div>';
+      }
+      nextBtn.disabled = false;
+    }
+
+    function proximaQuestao(n) {
+      mostrarQuestao(n);
+      window.scrollTo({ top: document.getElementById('quiz-section').offsetTop - 72, behavior: 'smooth' });
+    }
+
+    function mostrarResultado() {
+      document.getElementById('quiz-body').style.display = 'none';
+      document.getElementById('progress-wrap').style.display = 'none';
+      var pct = Math.round((acertos / totalQuestoes) * 100);
+      document.getElementById('res-score').textContent = acertos + '/' + totalQuestoes;
+      document.getElementById('r-acertos').textContent = acertos;
+      document.getElementById('r-erros').textContent = totalQuestoes - acertos;
+      document.getElementById('r-pct').textContent = pct + '%';
+      var titulo, msg;
+      if (acertos === 7) {
+        titulo = 'Investidor nato.';
+        msg = 'Você acertou tudo — domina os fundamentos de inflação, renda fixa e renda variável. O próximo passo é colocar o conhecimento em prática: defina sua reserva de emergência, escolha seus ativos e comece.';
+      } else if (acertos >= 5) {
+        titulo = 'Muito bem!';
+        msg = 'Você tem uma base sólida. Revise os pontos que errou — provavelmente são detalhes importantes como a diferença entre LCI e CDB ou quando não usar ações. A trilha completa pode ajudar a fechar essas lacunas.';
+      } else if (acertos >= 3) {
+        titulo = 'Bom começo.';
+        msg = 'Você está no caminho certo, mas ainda há conceitos a consolidar. Recomendamos percorrer a trilha completa — especialmente os temas de Selic, Tesouro Direto e Renda Variável. Conhecimento é o melhor investimento.';
+      } else {
+        titulo = 'Continue estudando.';
+        msg = 'Não se preocupe — todo investidor começa do zero. Os fundamentos de inflação e Selic são a base de tudo. Comece pela trilha completa e refaça o quiz. A diferença entre guardar e investir pode mudar o seu futuro.';
+      }
+      document.getElementById('res-title').textContent = titulo;
+      document.getElementById('res-msg').textContent = msg;
+      document.getElementById('resultado').classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function reiniciarQuiz() {
+      acertos = 0;
+      document.querySelectorAll('.option').forEach(function(o) {
+        o.disabled = false;
+        o.classList.remove('correct', 'wrong');
+      });
+      document.querySelectorAll('.feedback').forEach(function(fb) {
+        fb.className = 'feedback';
+        fb.innerHTML = '';
+      });
+      document.querySelectorAll('[id^="next"]').forEach(function(btn) { btn.disabled = true; });
+      document.getElementById('resultado').classList.remove('visible');
+      document.getElementById('quiz-body').style.display = 'block';
+      document.getElementById('progress-wrap').style.display = 'flex';
+      mostrarQuestao(1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function confirmarSaidaQuiz(evento) {
+      var quizAtivo = document.getElementById('quiz-body').style.display === 'block';
+      if (!quizAtivo) return true;
+      evento.preventDefault();
+      if (confirm('Se você sair agora, vai perder o progresso do questionário. Deseja continuar?')) {
+        window.location.href = evento.currentTarget.href || 'index.html';
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
