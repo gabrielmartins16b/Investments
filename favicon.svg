@@ -1,0 +1,41 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#0c0f0a"/>
+  <rect x="24" y="24" width="464" height="464" rx="80" fill="#111410"/>
+  <rect x="24" y="24" width="464" height="464" rx="80" fill="none" stroke="#c9b87a" stroke-width="1.5" stroke-opacity="0.35"/>
+
+  <rect x="76"  y="340" width="42" height="118" fill="#c9b87a" fill-opacity="0.22" rx="3"/>
+  <rect x="76"  y="340" width="42" height="2"   fill="#c9b87a" rx="1"/>
+  <rect x="130" y="278" width="42" height="180" fill="#c9b87a" fill-opacity="0.22" rx="3"/>
+  <rect x="130" y="278" width="42" height="2"   fill="#c9b87a" rx="1"/>
+  <rect x="184" y="218" width="42" height="240" fill="#c9b87a" fill-opacity="0.24" rx="3"/>
+  <rect x="184" y="218" width="42" height="2"   fill="#c9b87a" rx="1"/>
+  <rect x="238" y="158" width="42" height="300" fill="#c9b87a" fill-opacity="0.26" rx="3"/>
+  <rect x="238" y="158" width="42" height="2"   fill="#c9b87a" rx="1"/>
+  <rect x="292" y="108" width="42" height="350" fill="#c9b87a" fill-opacity="0.28" rx="3"/>
+  <rect x="292" y="108" width="42" height="2"   fill="#c9b87a" rx="1"/>
+
+  <polyline
+    points="97,340 151,278 205,218 259,158 313,108"
+    fill="none" stroke="#97c459" stroke-width="2.5"
+    stroke-linejoin="round" stroke-linecap="round" stroke-opacity="0.85"/>
+  <circle cx="97"  cy="340" r="4"   fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="151" cy="278" r="4"   fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="205" cy="218" r="4"   fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="259" cy="158" r="4"   fill="#97c459" fill-opacity="0.9"/>
+  <circle cx="313" cy="108" r="5.5" fill="#97c459"/>
+
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#111410" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#111410" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#111410" stop-opacity="0.75"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="80" fill="url(#fade)"/>
+
+  <text x="142" y="478"
+    font-family="Georgia, serif"
+    font-size="186" font-weight="700" letter-spacing="-6"
+    fill="#c9b87a" fill-opacity="0.95"
+    text-anchor="start" dominant-baseline="auto">IN</text>
+</svg>
