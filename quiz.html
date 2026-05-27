@@ -103,13 +103,57 @@
     .foot-links a:hover { color: var(--text-dim); }
     .foot-copy { font-size: 11px; color: var(--text-faint); letter-spacing: 0.04em; }
 
-    @media (max-width: 900px) {
-      nav { padding: 0 1.5rem; }
-      .quiz-hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.5rem; }
-      .progress-bar-wrap { padding: 0 1.5rem; }
-      .quiz-body, .resultado { padding: 3rem 1.5rem; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--gold); transition: transform 0.3s, opacity 0.3s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 99; flex-direction: column; padding: 2.5rem 2rem; border-top: 0.5px solid var(--border); gap: 0; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; padding: 1.4rem 0; border-bottom: 0.5px solid var(--border-faint); }
+    .mobile-menu .btn-primary { margin-top: 2rem; width: 100%; padding: 14px; font-size: 13px; text-align: center; }
+
+    @media (max-width: 1024px) and (min-width: 601px) {
+      nav { padding: 0 2rem; }
+      .quiz-hero { padding: 3.5rem 2rem 3rem; gap: 2.5rem; }
+      .progress-bar-wrap { padding: 0 2rem; }
+      .quiz-body, .resultado { padding: 3rem 2rem; }
+      .res-grid { grid-template-columns: repeat(3, 1fr); }
+      footer { padding: 2.5rem 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1.2rem; height: 60px; }
+      .logo { font-size: 16px; gap: 6px; }
+      .logo-mark { width: 22px; height: 22px; font-size: 10px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { top: 60px; }
+
+      .quiz-hero { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.2rem 2rem; }
+      .hero-meta { display: none; }
+      .hero-cta { flex-direction: column; gap: 0.75rem; }
+      .hero-cta .btn-primary, .hero-cta .btn-ghost { width: 100%; text-align: center; padding: 14px; }
+
+      .progress-bar-wrap { padding: 0 1.2rem; gap: 1rem; height: 48px; }
+      .progress-label { font-size: 11px; }
+
+      .quiz-body { padding: 2rem 1.2rem; }
+      .q-text { font-size: clamp(18px, 5vw, 24px); }
+      .q-hint { padding: 1rem 1.2rem; font-size: 12px; }
+      .option { padding: 1.2rem 1.2rem; gap: 1rem; }
+      .option-text { font-size: 13px; }
+      .q-actions .btn-ghost { width: 100%; text-align: center; padding: 14px; }
+
+      .resultado { padding: 2.5rem 1.2rem; gap: 2rem; }
+      .res-score { font-size: 60px; }
       .res-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; }
+      .res-msg { font-size: 17px; padding: 1.5rem; }
+      .res-actions { flex-direction: column; }
+      .res-actions .btn-primary, .res-actions .btn-ghost { width: 100%; text-align: center; padding: 14px; }
+
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.2rem; }
+      .foot-links { flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
     }
   </style>
 </head>
